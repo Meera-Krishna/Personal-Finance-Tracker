@@ -88,8 +88,7 @@ finance-website/
 ## 📬 Contact
 
 For questions or collaboration:
-
-- **Email:** youremail@example.com  
+ 
 - **GitHub:** https://github.com/Meera-Krishna 
 - **LinkedIn:** https://linkedin.com/in/meera-krishna 
 
