@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance App</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxNiIgZmlsbD0iIzRGNDZFNSIvPgogIDxwYXRoIGQ9Ik0xOCA0MkMxOCAzMy4xNjMgMjUuMTYzIDI2IDM0IDI2SDQ2IiBzdHJva2U9IiNFRUYyRkYiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTMwIDE4SDQwIiBzdHJva2U9IiNFRUYyRkYiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGNpcmNsZSBjeD0iMzQiIGN5PSI0MCIgcj0iNiIgZmlsbD0iIzIyQzU1RSIvPgo8L3N2Zz4K" type="image/svg+xml">
+  <style>
+/* Root colors tweaked to a stronger blue + violet financial theme */
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f3f4ff;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #4f46e5;
+  --primary-dark: #4338ca;
+  --primary-soft: #eef2ff;
+  --card: #ffffff;
+  --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+input,
+select {
+  font: inherit;
+}
+
+.container {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Header / Nav */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem 0.75rem;
+}
+
+.logo span {
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  color: #111827;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.nav-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn {
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(79, 70, 229, 0.35);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-outline {
+  border: 1px solid #c7d2fe;
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.btn-outline:hover {
+  background: #e0e7ff;
+}
+
+.menu-toggle,
+.menu-close {
+  display: none;
+}
+
+/* Hero */
+
+.hero {
+  padding: 4rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-left h1 {
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.hero-left p {
+  max-width: 360px;
+  font-size: 0.98rem;
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+}
+
+/* Sections */
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.section-paragraph {
+  font-size: 0.98rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.link {
+  font-size: 0.95rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.preview,
+.track {
+  padding: 3.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Get in touch */
+
+.get-in-touch {
+  padding: 3rem 1.5rem 0;
+}
+
+.get-in-touch-banner {
+  background: radial-gradient(circle at top left, #4f46e5, #111827);
+  color: #fff;
+  padding: 3rem 1.5rem;
+}
+
+.get-in-touch-content {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.get-in-touch-content h2 {
+  font-size: 2rem;
+}
+
+/* Footer */
+
+.footer {
+  background: #e5e7eb;
+  padding: 3rem 0;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+}
+
+.footer-card h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-card a {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.footer-card a:hover {
+  color: var(--text);
+}
+
+.social {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social a {
+  padding: 0.4rem;
+  border-radius: 999px;
+  background: #c7d2fe;
+}
+
+/* Loader */
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 3px solid #e5e7eb;
+  border-top-color: var(--primary);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dashboard */
+
+.dashboard-body {
+  background: #020617;
+}
+
+.dashboard-body.dark {
+  --bg: #020617;
+  --bg-alt: #020617;
+  --text: #f9fafb;
+  --muted: #9ca3af;
+  --card: #020617;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: #020617;
+  color: #e5e7eb;
+  padding: 1.5rem 1.25rem;
+}
+
+.sidebar-logo span {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.sidebar-menu {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.sidebar-menu li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #9ca3af;
+}
+
+.sidebar-menu li.active,
+.sidebar-menu li:hover {
+  background: #0f172a;
+  color: #fff;
+}
+
+.dashboard-main {
+  padding: 1.75rem 2.25rem;
+  background: radial-gradient(circle at top left, #1d2442 0, #020617 40%);
+  color: #e5e7eb;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.dashboard-date {
+  font-weight: 600;
+}
+
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+.card p {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
+}
+
+.card h2 {
+  font-size: 1.5rem;
+}
+
+.card.incomes {
+  border-bottom: 3px solid #22c55e;
+}
+
+.card.expenses {
+  border-bottom: 3px solid #f97316;
+}
+
+.card.total {
+  border-bottom: 3px solid #4f46e5;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+  gap: 1.5rem;
+}
+
+.dashboard-section.hidden {
+  display: none;
+}
+
+.transactions {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+.transactions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.transactions table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactions th,
+.transactions td {
+  text-align: left;
+  padding: 0.6rem 0.3rem;
+  font-size: 0.9rem;
+  color: #e5e7eb;
+}
+
+.transactions thead {
+  border-bottom: 1px solid #1f2937;
+}
+
+.chart {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(18px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-circle {
+  margin-top: 1.5rem;
+  width: 190px;
+  height: 190px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, #020617 55%, transparent 56%),
+    conic-gradient(#22c55e 0deg, #22c55e 120deg, #1f2937 120deg, #1f2937 360deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.chart-circle[data-empty="true"] {
+  background:
+    radial-gradient(circle at center, #020617 55%, transparent 56%),
+    conic-gradient(#1f2937 0deg, #1f2937 360deg);
+}
+
+/* Contact card inside dashboard */
+.contact-card {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 2rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+  max-width: 620px;
+}
+
+.contact-card h2 {
+  margin-bottom: 0.75rem;
+}
+
+.contact-card p {
+  margin-bottom: 1.5rem;
+  color: #9ca3af;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.contact-grid h4 {
+  margin-bottom: 0.4rem;
+}
+
+.contact-grid a {
+  color: #c7d2fe;
+  font-size: 0.95rem;
+}
+
+/* Modal */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  width: min(420px, 90%);
+  background: #020617;
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 65px rgba(0, 0, 0, 0.6);
+  padding: 1.5rem 1.75rem 1.75rem;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.modal-form label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.9rem;
+}
+
+.modal-form input,
+.modal-form select {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.75rem;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+.modal-form input:focus,
+.modal-form select:focus {
+  outline: 1px solid #4f46e5;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.modal-close {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #020617;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.6);
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+
+@media (max-width: 1120px) {
+  html {
+    font-size: 87%;
+  }
+
+  .hero,
+  .preview,
+  .track {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .dashboard-main {
+    padding-inline: 1.5rem;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links,
+  .nav-actions {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav.open {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    flex-direction: column;
+    padding: 2rem;
+    justify-content: flex-start;
+    gap: 2rem;
+    z-index: 20;
+  }
+
+  .nav.open .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav.open .nav-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav.open .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .menu-close {
+    display: block;
+    align-self: flex-end;
+  }
+
+  .get-in-touch-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .modal {
+    padding-inline: 1.25rem;
+  }
+}
+
+  
+  /* Dashboard as full-screen overlay */
+  body.dashboard-open {
+    overflow: hidden;
+  }
+
+  #dashboard {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--body-bg, #020617);
+    overflow-y: auto;
+    z-index: 999;
+  }
+
+  #dashboard.active {
+    display: block;
+  }
+
+  </style>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+</head>
+<body>
+
+  <header class="container header">
+    <div class="logo">
+      <span>Finance</span>
+    </div>
+
+    <button class="menu-toggle" id="menu-open">
+      <i data-feather="menu"></i>
+    </button>
+
+    <nav class="nav" id="nav">
+      <button class="menu-close" id="menu-close">
+        <i data-feather="x"></i>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#preview">Preview</a></li>
+        <li><a href="#track">Track spending</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-outline">Contact</a>
+        <a href="#dashboard" class="btn btn-primary">Dashboard</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero container">
+      <div class="hero-left header-content-left">
+        <h1>Your best financial life starts here.</h1>
+        <p>
+          A smart, easy-to-use app that allows you to track your in-and-out money.
+        </p>
+        <a href="#dashboard" class="btn btn-primary">Go to Dashboard</a>
+      </div>
+      <div class="hero-right header-content-right">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI2MCIgdmlld0JveD0iMCAwIDQwMCAyNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyNjAiIHJ4PSIzMiIgZmlsbD0iI0VFRjJGRiIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjExMCIgcj0iNDAiIGZpbGw9IiM0RjQ2RTUiIG9wYWNpdHk9IjAuOSIvPgogIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjkwIiByPSI0NSIgZmlsbD0iIzIyQzU1RSIgb3BhY2l0eT0iMC45Ii8+CiAgPGNpcmNsZSBjeD0iMzAwIiBjeT0iMTIwIiByPSIzNSIgZmlsbD0iI0Y5NzMxNiIgb3BhY2l0eT0iMC45Ii8+CiAgPHJlY3QgeD0iNjAiIHk9IjE1MCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiByeD0iMjAiIGZpbGw9IiNDN0QyRkUiLz4KICA8cmVjdCB4PSIxNjAiIHk9IjE0MCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjcwIiByeD0iMjAiIGZpbGw9IiNCQkY3RDAiLz4KICA8cmVjdCB4PSIyNjAiIHk9IjE1NSIgd2lkdGg9IjgwIiBoZWlnaHQ9IjU1IiByeD0iMjAiIGZpbGw9IiNGRUQ3QUEiLz4KICA8dGV4dCB4PSIyMDAiIHk9IjIzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzRCNTU2MyIgZm9udC1mYW1pbHk9InN5c3RlbS11aSIgZm9udC1zaXplPSIxNiI+CiAgICBZb3VyIGZpbmFuY2UgdGVhbQogIDwvdGV4dD4KPC9zdmc+Cg==" alt="Team image">
+      </div>
+    </section>
+
+    <section id="preview" class="preview container">
+      <div class="preview-left app-preview-left">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDIwIiBoZWlnaHQ9IjI2MCIgdmlld0JveD0iMCAwIDQyMCAyNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3QgeD0iNDAiIHk9IjQwIiB3aWR0aD0iMzQwIiBoZWlnaHQ9IjE3MCIgcng9IjE4IiBmaWxsPSIjMEYxNzJBIi8+CiAgPHJlY3QgeD0iNTUiIHk9IjU1IiB3aWR0aD0iMzEwIiBoZWlnaHQ9IjEyMCIgcng9IjEwIiBmaWxsPSIjMDIwNjE3Ii8+CiAgPHJlY3QgeD0iNTUiIHk9IjU1IiB3aWR0aD0iMzEwIiBoZWlnaHQ9IjI2IiByeD0iMTAiIGZpbGw9IiMxMTE4MjciLz4KICA8Y2lyY2xlIGN4PSI3MSIgY3k9IjY4IiByPSI0IiBmaWxsPSIjRUY0NDQ0Ii8+CiAgPGNpcmNsZSBjeD0iODYiIGN5PSI2OCIgcj0iNCIgZmlsbD0iI0Y5NzMxNiIvPgogIDxjaXJjbGUgY3g9IjEwMSIgY3k9IjY4IiByPSI0IiBmaWxsPSIjMjJDNTVFIi8+CiAgPHJlY3QgeD0iNzUiIHk9Ijk1IiB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHJ4PSIxMCIgZmlsbD0iIzFENEVEOCIvPgogIDxyZWN0IHg9IjE3NSIgeT0iOTUiIHdpZHRoPSIxNjAiIGhlaWdodD0iMTgiIHJ4PSI0IiBmaWxsPSIjMTExODI3Ii8+CiAgPHJlY3QgeD0iMTc1IiB5PSIxMjAiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTAiIHJ4PSI0IiBmaWxsPSIjMTExODI3Ii8+CiAgPHJlY3QgeD0iMTc1IiB5PSIxNDAiIHdpZHRoPSIxNTAiIGhlaWdodD0iMTAiIHJ4PSI0IiBmaWxsPSIjMTExODI3Ii8+CiAgPHJlY3QgeD0iNDAiIHk9IjIxMCIgd2lkdGg9IjM0MCIgaGVpZ2h0PSIxNiIgcng9IjgiIGZpbGw9IiMxMTE4MjciLz4KICA8cmVjdCB4PSI4MCIgeT0iMjIyIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjE0IiByeD0iNyIgZmlsbD0iIzAyMDYxNyIvPgogIDx0ZXh0IHg9IjIxMCIgeT0iMjQ1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOUNBM0FGIiBmb250LWZhbWlseT0ic3lzdGVtLXVpIiBmb250LXNpemU9IjE0Ij4KICAgIEJ1ZGdldCAmYW1wOyBleHBlbnNlcyBwcmV2aWV3CiAgPC90ZXh0Pgo8L3N2Zz4K" alt="App preview">
+      </div>
+      <div class="preview-right app-preview-right">
+        <h2 class="section-title">Spend smarter and save more</h2>
+        <p class="section-paragraph">
+          Say goodbye to spreadsheets with customizable budgets.
+          Easily add and update your incomes and expenses.
+        </p>
+        <a href="#dashboard" class="link">Get Started</a>
+      </div>
+    </section>
+
+    <section id="track" class="track container track-your-spending">
+      <div class="track-left track-your-spending-left">
+        <h2 class="section-title">Track your spending</h2>
+        <p class="section-paragraph">
+          Reach your goals with custom budgets, monitoring your incomes and
+          expenses everyday. All for free.
+        </p>
+        <a href="#dashboard" class="link">Get Started</a>
+      </div>
+      <div class="track-right track-your-spending-right">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgwIiBoZWlnaHQ9IjI2MCIgdmlld0JveD0iMCAwIDM4MCAyNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjM4MCIgaGVpZ2h0PSIyNjAiIHJ4PSIzMiIgZmlsbD0iIzAyMDYxNyIvPgogIDxjaXJjbGUgY3g9IjE0MCIgY3k9IjExMCIgcj0iNjAiIGZpbGw9IiM0RjQ2RTUiLz4KICA8cGF0aCBkPSJNMTQwIDYwQzE2NSA2MCAxODUgODAgMTg1IDEwNUMxODUgMTMwIDE2NSAxNTAgMTQwIDE1MEMxMTUgMTUwIDk1IDEzMCA5NSAxMDVDOTUgODAgMTE1IDYwIDE0MCA2MFoiIGZpbGw9IiNFNUU3RUIiIG9wYWNpdHk9IjAuOSIvPgogIDxyZWN0IHg9IjEyOCIgeT0iMTUwIiB3aWR0aD0iMjQiIGhlaWdodD0iMzIiIHJ4PSI2IiBmaWxsPSIjRTVFN0VCIi8+CiAgPHJlY3QgeD0iMTIwIiB5PSIxODUiIHdpZHRoPSI0MCIgaGVpZ2h0PSIxMCIgcng9IjUiIGZpbGw9IiM0QjU1NjMiLz4KICA8cmVjdCB4PSIyMTAiIHk9IjgwIiB3aWR0aD0iMTMwIiBoZWlnaHQ9IjExMCIgcng9IjIyIiBmaWxsPSIjMEYxNzJBIi8+CiAgPHJlY3QgeD0iMjI1IiB5PSIxMDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjMUQ0RUQ4Ii8+CiAgPHJlY3QgeD0iMjI1IiB5PSIxMjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI4IiByeD0iNCIgZmlsbD0iIzY0NzQ4QiIvPgogIDxyZWN0IHg9IjIyNSIgeT0iMTM4IiB3aWR0aD0iODAiIGhlaWdodD0iOCIgcng9IjQiIGZpbGw9IiM2NDc0OEIiLz4KICA8cmVjdCB4PSIyMjUiIHk9IjE1NiIgd2lkdGg9IjQwIiBoZWlnaHQ9IjgiIHJ4PSI0IiBmaWxsPSIjNjQ3NDhCIi8+CiAgPHRleHQgeD0iMTQwIiB5PSIyMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNFNUU3RUIiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWkiIGZvbnQtc2l6ZT0iMTUiPgogICAgVHJhY2sgZXZlcnkgaWRlYSAmYW1wOyBydXBlZQogIDwvdGV4dD4KPC9zdmc+Cg==" alt="Idea image">
+      </div>
+    </section>
+
+    <section id="contact" class="get-in-touch">
+      <div class="get-in-touch-banner">
+        <div class="get-in-touch-content">
+          <div>
+            <h2>Get in touch with us.</h2>
+            <p class="section-paragraph" style="color:#e5e7eb; max-width:360px;">
+              Have questions, feedback, or just want to say hi? Reach out using the contact info below.
+            </p>
+          </div>
+          <a href="#contact-footer" class="btn btn-primary">Contact</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact-footer" class="footer">
+    <div class="footer-container container">
+      <div class="footer-card">
+        <h3>Our mission</h3>
+        <a href="#home">Home</a>
+        <a href="#preview">Preview</a>
+        <a href="#track">Track spending</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-card">
+        <h3>Contact</h3>
+        <a href="mailto:youremail@example.com">youremail@example.com</a>
+        <a href="tel:+911234567890">+91 12345 67890</a>
+      </div>
+
+      <div class="footer-card">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#preview">Preview</a>
+        <a href="#track">Track spending</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-card">
+        <h3>Social</h3>
+        <div class="social">
+          <a href="https://www.linkedin.com" target="_blank"><i data-feather="linkedin"></i></a>
+          <a href="https://github.com" target="_blank"><i data-feather="github"></i></a>
+          <a href="https://www.instagram.com" target="_blank"><i data-feather="instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="loader-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  
+  
+  
+  
+
+
+  <section id="dashboard">
+
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span>Finance</span>
+      </div>
+      <ul class="sidebar-menu">
+        <li data-section="dashboard" class="active"><i data-feather="grid"></i><span>Dashboard</span></li>
+        <li data-section="contact"><i data-feather="mail"></i><span>Contact</span></li>
+        <li onclick="closeDashboard()"><i data-feather="log-out"></i><span>Exit</span></li>
+      </ul>
+    </aside>
+
+    <main class="dashboard-main">
+      <header class="dashboard-header">
+        <div>
+          <p class="dashboard-date">November, 27</p>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <i data-feather="moon"></i>
+        </button>
+      </header>
+
+      <!-- DASHBOARD SECTION -->
+      <section class="dashboard-section" id="section-dashboard">
+        <section class="cards">
+          <div class="card incomes">
+            <p>Incomes</p>
+            <h2 id="incomes-value">R$ 0,00</h2>
+          </div>
+          <div class="card expenses">
+            <p>Expenses</p>
+            <h2 id="expenses-value">R$ 0,00</h2>
+          </div>
+          <div class="card total">
+            <p>Total</p>
+            <h2 id="total-value">R$ 0,00</h2>
+          </div>
+        </section>
+
+        <section class="dashboard-content">
+          <div class="transactions">
+            <div class="transactions-header">
+              <h3>Last Transactions</h3>
+              <button class="btn btn-primary" id="btn-new-transaction">+ New Transaction</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="transactions-body">
+                <tr>
+                  <td colspan="4">No Transactions</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="chart">
+            <h3>Chart | Balance</h3>
+            <div class="chart-circle" id="chart-circle">
+              <p id="chart-label">No Transactions</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section class="dashboard-section hidden" id="section-contact">
+        <div class="contact-card">
+          <h2>Contact information</h2>
+          <p>If you have any questions or want to collaborate, feel free to reach out.</p>
+
+          <div class="contact-grid">
+            <div>
+              <h4>Email</h4>
+              <a href="mailto:youremail@example.com">youremail@example.com</a>
+            </div>
+            <div>
+              <h4>Phone</h4>
+              <a href="tel:+911234567890">+91 12345 67890</a>
+            </div>
+            <div>
+              <h4>LinkedIn</h4>
+              <a href="https://www.linkedin.com" target="_blank">linkedin.com/in/your-profile</a>
+            </div>
+            <div>
+              <h4>GitHub</h4>
+              <a href="https://github.com" target="_blank">github.com/your-username</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL: NEW TRANSACTION -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>New Transaction</h3>
+        <button class="modal-close" id="modal-close" aria-label="Close">
+          <i data-feather="x"></i>
+        </button>
+      </div>
+      <form id="transaction-form" class="modal-form">
+        <label>
+          Description
+          <input type="text" id="input-description" required placeholder="e.g. Freelance work, Groceries">
+        </label>
+
+        <div class="form-grid">
+          <label>
+            Type
+            <select id="input-type" required>
+              <option value="income" selected>Income</option>
+              <option value="expense">Expense</option>
+            </select>
+          </label>
+          <label>
+            Amount (R$)
+            <input type="number" id="input-amount" step="0.01" min="0" required placeholder="0.00">
+          </label>
+        </div>
+
+        <label>
+          Date
+          <input type="date" id="input-date" required>
+        </label>
+
+        <button type="submit" class="btn btn-primary full-width">Save Transaction</button>
+      </form>
+    </div>
+  </div>
+
+  
+  
+
+  </section>
+
+  <script>
+const body = document.querySelector('body');
+const nav = document.getElementById('nav');
+const openBtn = document.getElementById('menu-open');
+const closeBtn = document.getElementById('menu-close');
+const loader = document.querySelector('.loader-overlay');
+
+const menu = {
+  open() {
+    nav.classList.add('open');
+    body.style.overflow = 'hidden';
+  },
+  close() {
+    nav.classList.remove('open');
+    body.style.overflow = 'auto';
+  }
+};
+
+openBtn.addEventListener('click', () => menu.open());
+closeBtn.addEventListener('click', () => menu.close());
+
+nav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => menu.close());
+});
+
+window.addEventListener('load', () => {
+  if (loader) loader.style.display = 'none';
+});
+
+</script>
+<script>
+const slideLeft = {
+  distance: '50px',
+  origin: 'left',
+  opacity: 0,
+  delay: 200,
+  duration: 700,
+  reset: true
+};
+
+const slideRight = {
+  distance: '50px',
+  origin: 'right',
+  opacity: 0,
+  delay: 200,
+  duration: 700,
+  reset: true
+};
+
+const slideUp = {
+  distance: '40px',
+  origin: 'bottom',
+  opacity: 0,
+  delay: 200,
+  duration: 700,
+  reset: true
+};
+
+ScrollReveal().reveal('.header-content-left', slideLeft);
+ScrollReveal().reveal('.header-content-right', slideRight);
+
+ScrollReveal().reveal('.app-preview-left', slideLeft);
+ScrollReveal().reveal('.app-preview-right', slideRight);
+
+ScrollReveal().reveal('.track-your-spending-left', slideLeft);
+ScrollReveal().reveal('.track-your-spending-right', slideRight);
+
+ScrollReveal().reveal('.get-in-touch-banner', slideUp);
+ScrollReveal().reveal('.footer-container', slideUp);
+
+</script>
+<script>
+const body = document.body;
+const toggle = document.getElementById('theme-toggle');
+const sidebarItems = document.querySelectorAll('.sidebar-menu li[data-section]');
+const sections = document.querySelectorAll('.dashboard-section');
+const btnNewTransaction = document.getElementById('btn-new-transaction');
+const modalOverlay = document.getElementById('modal-overlay');
+const modalClose = document.getElementById('modal-close');
+const form = document.getElementById('transaction-form');
+const tbody = document.getElementById('transactions-body');
+
+const incomeEl = document.getElementById('incomes-value');
+const expensesEl = document.getElementById('expenses-value');
+const totalEl = document.getElementById('total-value');
+const chartCircle = document.getElementById('chart-circle');
+const chartLabel = document.getElementById('chart-label');
+
+let transactions = [];
+
+// Theme toggle
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    body.classList.toggle('dark');
+  });
+}
+
+// Sidebar navigation (Dashboard / Contact)
+sidebarItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const sectionName = item.getAttribute('data-section');
+    if (!sectionName) return;
+
+    sidebarItems.forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+
+    sections.forEach(sec => {
+      if (sec.id === `section-${sectionName}`) {
+        sec.classList.remove('hidden');
+      } else {
+        sec.classList.add('hidden');
+      }
+    });
+  });
+});
+
+// Modal open / close
+function openModal() {
+  modalOverlay.classList.add('open');
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('open');
+  form.reset();
+  const dateInput = document.getElementById('input-date');
+  if (dateInput) {
+    dateInput.value = new Date().toISOString().slice(0, 10);
+  }
+}
+
+btnNewTransaction.addEventListener('click', openModal);
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+
+// Currency formatter
+function formatCurrency(value) {
+  return 'R$ ' + value.toFixed(2).replace('.', ',');
+}
+
+// Render all amounts + table + chart
+function render() {
+  let incomes = 0;
+  let expenses = 0;
+
+  transactions.forEach(t => {
+    if (t.type === 'income') {
+      incomes += t.amount;
+    } else {
+      expenses += t.amount;
+    }
+  });
+
+  const total = incomes - expenses;
+
+  incomeEl.textContent = formatCurrency(incomes);
+  expensesEl.textContent = formatCurrency(expenses);
+  totalEl.textContent = formatCurrency(total);
+
+  // Table
+  tbody.innerHTML = '';
+  if (transactions.length === 0) {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.colSpan = 4;
+    cell.textContent = 'No Transactions';
+    row.appendChild(cell);
+    tbody.appendChild(row);
+  } else {
+    transactions.slice().reverse().forEach(t => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${t.description}</td>
+        <td>${t.type === 'income' ? 'Income' : 'Expense'}</td>
+        <td>${formatCurrency(t.amount)}</td>
+        <td>${t.date}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  // Chart
+  if (transactions.length === 0) {
+    chartCircle.setAttribute('data-empty', 'true');
+    chartLabel.textContent = 'No Transactions';
+  } else {
+    chartCircle.removeAttribute('data-empty');
+    const totalAbs = incomes + expenses;
+    const incomeAngle = totalAbs === 0 ? 0 : (incomes / totalAbs) * 360;
+    chartCircle.style.background = `
+      radial-gradient(circle at center, #020617 55%, transparent 56%),
+      conic-gradient(#22c55e 0deg, #22c55e ${incomeAngle}deg, #1f2937 ${incomeAngle}deg, #1f2937 360deg)
+    `;
+    chartLabel.textContent = 'Incomes vs Expenses';
+  }
+}
+
+// Form submit
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const description = document.getElementById('input-description').value.trim();
+  const type = document.getElementById('input-type').value;
+  const amountValue = parseFloat(document.getElementById('input-amount').value || '0');
+  const dateValue = document.getElementById('input-date').value;
+
+  if (!description || isNaN(amountValue) || !dateValue) {
+    return;
+  }
+
+  transactions.push({
+    description,
+    type,
+    amount: Math.abs(amountValue),
+    date: dateValue
+  });
+
+  render();
+  closeModal();
+});
+
+// Set default date and initial render
+const dateInput = document.getElementById('input-date');
+if (dateInput) {
+  dateInput.value = new Date().toISOString().slice(0, 10);
+}
+
+render();
+
+</script>
+
+<script>
+  (function() {
+    var dashboard = document.getElementById('dashboard');
+    if (!dashboard) return;
+
+    var openLinks = document.querySelectorAll('a[href="#dashboard"], button[data-open-dashboard]');
+
+    function openDashboard(event) {
+      if (event) event.preventDefault();
+      dashboard.classList.add('active');
+      document.body.classList.add('dashboard-open');
+      window.scrollTo(0, 0);
+    }
+
+    openLinks.forEach(function(el) {
+      el.addEventListener('click', openDashboard);
+    });
+
+    window.closeDashboard = function() {
+      dashboard.classList.remove('active');
+      document.body.classList.remove('dashboard-open');
+      var home = document.getElementById('home');
+      if (home && home.scrollIntoView) {
+        home.scrollIntoView({ behavior: 'auto', block: 'start' });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    };
+  })();
+</script>
+
+  <script>feather.replace();</script>
+
+</body>
+</html>
